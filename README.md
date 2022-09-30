@@ -1,3 +1,5 @@
+This is parking lot management application using object oriented programming and basic data structures.
+
 First setup an IDE for running C++ program.
 I used Sublime text as an IDE.
 
