@@ -1,0 +1,13 @@
+Create_ParkingLot 2 3
+
+Park KA-01-HH-1234 Car 1
+
+Park PB-01-HH-1234 Bike 2
+
+Exit_Vehicle 1 Bike 8
+
+Parking_History KA-01-HH-1234
+
+Exit_Vehicle 1 Car 6
+
+Parking_History PB-01-HH-1234
