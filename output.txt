@@ -1,20 +1,21 @@
-Created parking lot with 2 Car slots and 3 Bike slots
+Created parking lot with 2 Car slots and 2 Bike slots
 
 Car with vehicle registration number "KA-01-HH-1234" has been parked at car slot number 1
 
 Bike with vehicle registration number "PB-01-HH-1234" has been parked at Bike slot number 1
+
+Vehicle Details:
+Vehicle Parking slot: 1
+Vehicle still in Parking lot
+
+Bike with vehicle registration number "BR-02-HS-1644" has been parked at Bike slot number 2
+
+Bike with regno. UP-04-HR-1244 is parked on car slot due to full bike slots
 
 Slot number 1 vacated, the Bike with vehicle registration number "PB-01-HH-1234" left the space
 Parking Amount: 50
 
 Vehicle Details:
 Vehicle Parking slot: 1
-Vehicle still in Parking lot
-
-Slot number 1 vacated, the car with vehicle registration number "KA-01-HH-1234" left the space
-Parking Amount: 80
-
-Vehicle Details:
-Vehicle Parking slot: 1
-Duration of vehicle in Parking lot: 6HR
+Duration of vehicle in Parking lot: 4HR
 Amount paid by vehicle: Rs.50
