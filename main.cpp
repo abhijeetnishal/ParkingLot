@@ -23,6 +23,8 @@ private:
 public:
     //list of bike and cars slots
     vector<int> CarSlots,BikeSlots;
+    //car slot with bike
+    unordered_map<int,int> carTOBikePark;
 
     //Creating map which mapping key with value
     unordered_map<int,string> slotToRegNoBike,slotToRegNoCar;
@@ -152,11 +154,14 @@ public:
 
                 //RegNo to EntryTime mapping-> mp[RegNo]=EntryTime
                 VehicleToEntryTime[RegNo]=EntryTime;
+
                 //RegNO to Slot mapping
-
                 RegNoToSlot[RegNo]=vacant;
-                //incrementing car cnt.
+                
+                //car to bike parking mapping
+                carTOBikePark[vacant]=2;
 
+                //incrementing car cnt.
                 car_cnt++;
                 cout<<"Car with vehicle registration number \""<<RegNo<<"\" has been parked at car slot number "<<vacant<<"\n";
             }
@@ -171,7 +176,78 @@ public:
 
             //checking bike lot is full or not
             else if(isFull(this->bike_cnt,this->bike_maxsize)){
-                cout<<"Sorry, Bike parking lot is full"<<endl;
+                //now check car lot is full to not to park 2 bikes
+                if(isFull(this->car_cnt,this->car_maxsize) || this->car_maxsize==0)
+                    cout<<"Sorry, Bike parking lot is full"<<endl;
+                else{
+                    int vacant;
+                    bool checkCarSlotWithBike=false;
+                    //1-based indexing as created list above 1-based
+                    for(int idx=1;idx<=car_maxsize;idx++){
+                        if(carTOBikePark[idx]==1){
+                            checkCarSlotWithBike=true;
+                            vacant=idx;
+                            break;
+                        }
+                        //checking if 0 (means vacant)
+                        else if(CarSlots[idx]==0){
+                            //finding vacant position
+                            vacant=idx;
+                            break;
+                        }
+                    }
+                    if(checkCarSlotWithBike){
+                        carTOBikePark[vacant]++;
+                        
+                        //Bike to slot mapping-> mp[regNO]=slotNo.
+                        BikeToSlot[RegNo]=vacant;
+        
+                        //slot to RegNo mapping-> mp[slot]=regNO.
+                        //slotToRegNoBike[vacant] = RegNo;
+        
+                        //RegNo to EntryTime mapping-> mp[RegNo]=EntryTime
+                        VehicleToEntryTime[RegNo]=EntryTime;
+        
+                        //RegNO to Slot mapping
+                        RegNoToSlot[RegNo]=vacant;
+        
+                        //incrementing bike cnt.
+                        bike_cnt++;
+                        cout<<"Bike with regno. "<<RegNo<<" is parked on car slot due to full bike slots\n";
+                    }
+                    else{
+                        //filling slot by changing value from 0 to 1.
+                        CarSlots[vacant]=1;
+                        
+                        //checking if car lot is already parked 2 bikes
+                        if(carTOBikePark[vacant]==2){
+                            cout<<"Sorry, Bike parking lot is full\n";
+                        }
+                        //else park the bike and increment car lot space by 1
+                        else{
+                            carTOBikePark[vacant]++;
+                            //increment car count because the bike takes space of car lot.
+                            car_cnt++;
+                            
+                            //Bike to slot mapping-> mp[regNO]=slotNo.
+                            BikeToSlot[RegNo]=vacant;
+            
+                            //slot to RegNo mapping-> mp[slot]=regNO.
+                            //slotToRegNoBike[vacant] = RegNo;
+            
+                            //RegNo to EntryTime mapping-> mp[RegNo]=EntryTime
+                            VehicleToEntryTime[RegNo]=EntryTime;
+            
+                            //RegNO to Slot mapping
+                            RegNoToSlot[RegNo]=vacant;
+            
+                            //incrementing bike cnt.
+                            bike_cnt++;
+                            cout<<"Bike with regno. "<<RegNo<<" is parked on car slot due to full bike slots\n";
+                        } 
+                    }
+                    
+                }
             } 
 
             //else find vacant slot assign to 1(means occupied)
@@ -189,7 +265,7 @@ public:
                 //filling slot by changing value from 0 to 1.
                 BikeSlots[vacant]=1;
 
-                //car to slot mapping-> mp[regNO]=slotNo.
+                //Bike to slot mapping-> mp[regNO]=slotNo.
                 BikeToSlot[RegNo]=vacant;
 
                 //slot to RegNo mapping-> mp[slot]=regNO.
